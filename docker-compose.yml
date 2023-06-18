@@ -2,19 +2,6 @@ version: "3.5"
 
 services:
 
-  noip:
-    image: mumanski/no-ip:latest
-    container_name: noip
-    restart: unless-stopped
-    volumes:
-      - /etc/localtime:/etc/localtime
-      - noip:/config
-    environment:
-      USERNAME: "${NOIP_USERNAME}"
-      PASSWORD: "${NOIP_PASSWORD}"
-      DOMAINS: "${EXTERNAL_DOMAIN}"
-      INTERVAL: "30m"
-
   openvpn:
     image: alekslitvinenk/openvpn
     container_name: openvpn
@@ -27,13 +14,6 @@ services:
       HOST_ADDR: "${EXTERNAL_DOMAIN}"
     cap_add:
       - NET_ADMIN
-
-  unbound:
-    image: mvance/unbound:latest
-    container_name: unbound
-    restart: unless-stopped
-    volumes:
-      - unbound:/opt/unbound/etc/unbound/
 
   pihole:
     image: pihole/pihole:latest
